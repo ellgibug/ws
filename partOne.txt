@@ -1,0 +1,37 @@
+ЧАСТЬ 1.
+
+1) Создание таблицы professions
+CREATE TABLE `winestyle`.`professions` ( `id` INT NOT NULL AUTO_INCREMENT , `profession` VARCHAR(25) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+2) Создание таблицы workers
+CREATE TABLE `winestyle`.`workers` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(25) NOT NULL , `surname` VARCHAR(25) NOT NULL , `profession_id` INT NOT NULL , `payment` DOUBLE NOT NULL , `photo` VARCHAR(100) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+3) Создание таблицы payment. По умолчанию зарплата равно 0
+CREATE TABLE `winestyle`.`payment` ( `id` INT NOT NULL AUTO_INCREMENT , `worker_id` INT NOT NULL , `january` DOUBLE NULL DEFAULT '0' , `february` DOUBLE NULL DEFAULT '0' , `march` DOUBLE NULL DEFAULT '0' , `april` DOUBLE NULL DEFAULT '0' , `may` DOUBLE NULL DEFAULT '0' , `june` DOUBLE NULL DEFAULT '0' , `july` DOUBLE NULL DEFAULT '0' , `august` DOUBLE NULL DEFAULT '0' , `september` DOUBLE NULL DEFAULT '0' , `october` DOUBLE NULL DEFAULT '0' , `november` DOUBLE NULL DEFAULT '0' , `december` DOUBLE NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+4) Добавление трех профессий в таблицу professions
+INSERT INTO `winestyle`.`professions` (`id`, `profession`) VALUES (NULL, 'Бухгалтер'), (NULL, 'Курьер'), (NULL, 'Менеджер');
+
+5) Создание триггера на добавление сотрудника в таблицу payment, после добавления его в таблицу workers
+CREATE TRIGGER `trigger1` AFTER INSERT ON `workers` FOR EACH ROW BEGIN INSERT INTO `payment` (`worker_id`) VALUES (NEW.`id`); END
+
+6) Вставка данных о 15 сотрудниках в таблицу workers. В таблицу payment id и worker_id добавлятся автоматически
+INSERT INTO workers SET name = 'Имя 1', surname = 'Фамилия 1', profession_id = 1, payment = FLOOR(70000*RAND()), photo = '/images/img1.jpg';
+INSERT INTO workers SET name = 'Имя 2', surname = 'Фамилия 2', profession_id = 1, payment = FLOOR(70000*RAND()), photo = '/images/img2.jpg';
+INSERT INTO workers SET name = 'Имя 3', surname = 'Фамилия 3', profession_id = 1, payment = FLOOR(70000*RAND()), photo = '/images/img3.jpg';
+INSERT INTO workers SET name = 'Имя 4', surname = 'Фамилия 4', profession_id = 1, payment = FLOOR(70000*RAND()), photo = '/images/img4.jpg';
+INSERT INTO workers SET name = 'Имя 5', surname = 'Фамилия 5', profession_id = 1, payment = FLOOR(70000*RAND()), photo = '/images/img5.jpg';
+INSERT INTO workers SET name = 'Имя 6', surname = 'Фамилия 6', profession_id = 2, payment = FLOOR(70000*RAND()), photo = '/images/img6.jpg';
+INSERT INTO workers SET name = 'Имя 7', surname = 'Фамилия 7', profession_id = 2, payment = FLOOR(70000*RAND()), photo = '/images/img7.jpeg';
+INSERT INTO workers SET name = 'Имя 8', surname = 'Фамилия 8', profession_id = 2, payment = FLOOR(70000*RAND()), photo = '/images/img8.jpg';
+INSERT INTO workers SET name = 'Имя 9', surname = 'Фамилия 9', profession_id = 2, payment = FLOOR(70000*RAND()), photo = '/images/img9.jpg';
+INSERT INTO workers SET name = 'Имя 10', surname = 'Фамилия 10', profession_id = 2, payment = FLOOR(70000*RAND()), photo = '/images/img10.jpg';
+INSERT INTO workers SET name = 'Имя 11', surname = 'Фамилия 11', profession_id = 3, payment = FLOOR(70000*RAND()), photo = '/images/img11.jpg';
+INSERT INTO workers SET name = 'Имя 12', surname = 'Фамилия 12', profession_id = 3, payment = FLOOR(70000*RAND()), photo = '/images/img12.jpg';
+INSERT INTO workers SET name = 'Имя 13', surname = 'Фамилия 13', profession_id = 3, payment = FLOOR(70000*RAND()), photo = '/images/img13.jpg';
+INSERT INTO workers SET name = 'Имя 14', surname = 'Фамилия 14', profession_id = 3, payment = FLOOR(70000*RAND()), photo = '/images/img14.jpg';
+INSERT INTO workers SET name = 'Имя 15', surname = 'Фамилия 15', profession_id = 3, payment = FLOOR(70000*RAND()), photo = '/images/img15.jpg';
+
+* картинки лежат в папке images, она находится в гитигноре, но есть в архиве.
+** functions/config.php тоже находится в гитигноре, надо переименовать functions/configExample.php в functions/config.php и использовать его.
+*** дамп бд есть в архиве, но нет на гитхабе
